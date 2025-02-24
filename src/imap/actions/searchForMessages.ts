@@ -11,7 +11,8 @@ export default async function (
     order: "asc" | "desc" = "desc"
 ): Promise<IMailResult> {
     return await IMAPClientUtils.executeIMAPCommand(client, async (): Promise<IMailResult> => {
-
+        if (searchFor.mailbox) await client.imap.mailboxOpen(searchFor.mailbox);
+        
         let query: any = {};
         if (searchFor.messageId) query = {
             ...query,
